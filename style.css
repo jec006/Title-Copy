@@ -1,0 +1,90 @@
+#holder {
+  margin:auto;
+  width:600px;
+  height:500px;
+  background-color:#eee;
+  border-radius:6px;
+  border: 6px solid #e8e8e8;
+  padding:10px;
+}
+
+h3 {
+	font-family: Georgia, Tahoma, sans-serif;
+	font-size: 16px;
+	font-weight: bold;
+	margin: 5px 0px 0px 0px;	
+}
+
+table {
+	font-family: Georgia, Tahoma, sans-serif;
+	font-size: 14px;
+	font-weight:normal;
+	color: #333;	
+}
+
+table td.description {
+	font-size:12px;
+	padding-bottom: 10px;
+	color: #666;
+	font-style: oblique;
+}
+
+table td label {
+	font-weight:bold;	
+}
+
+hr {
+	line-height: 5px;
+	color: #333;
+	background-color: #333;	
+}
+
+#message {
+	height:15px;
+	padding:3px;
+	margin-top:2px;
+	width:590px;
+	font-family: Georgia, Tahoma, sans-serif;
+	font-size:12px;
+}
+
+#message.status {
+	border: 1px solid #7AEB81;
+	background-color: #AFF0B3;
+	color: #0B5207;
+	padding:2px;	
+}
+
+#message.error {
+	border: 1px solid #F24646;
+	background-color: #F58C8C;
+	color: #941010;
+	padding:2px;	
+}
+
+ul {
+  font-size:12px;
+  font-family: Georgia, Tahoma, sans-serif;
+  list-style:none;
+  padding:0;
+  margin:0;
+}
+
+ul li.header {
+  font-size: 14px;
+  font-weight: bold
+}
+
+ul li.note {
+  padding-left: 10px;
+}
+
+button {
+  font-family: Georgia, Tahoma, sans-serif;
+  font-weight:bold;
+  background-color:#333;
+  border:1px solid #666;
+  color:#ccc;
+  border-radius:6px;
+  padding:3px 15px;
+}

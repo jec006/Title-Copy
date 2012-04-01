@@ -1,0 +1,98 @@
+<link rel="stylesheet" type="text/css" href="style.css"></link>
+<script tpye="text/javascript">
+  function saveOptions() {
+    var form = document.getElementById('options_form');
+    form.onsubmit = function(){return false;}
+    if(form){
+      var l = form.length;
+      while(l--){
+        var elem = form[l];
+        if(elem.type == 'checkbox'){
+          localStorage['copytitle_'+elem.name] = elem.checked ? 'true' : 'false';
+        }else if(elem.value && 'submit|reset'.indexOf(elem.type) == -1){
+          localStorage['copytitle_'+elem.name] = elem.value;
+        }else{
+          localStorage.removeItem('copytitle_'+elem.name);
+        }
+      }
+      setMessage('Your options have been saved.', 'status');
+    } else {
+      setMessage('An Error has occurred. Your options were not saved.', 'error');
+    }
+    return false;
+  }
+  
+  function loadOptions() { 
+    var form = document.getElementById('options_form');
+    if(form){
+      var l = form.length;
+      while(l--){
+        var elem = form[l];
+        if(elem.type == 'checkbox'){
+			 if(!localStorage['copytitle_remove_jira']) localStorage['copytitle_remove_jira'] = 'true';        
+        
+          if(localStorage['copytitle_'+elem.name]=='true') elem.checked = true;
+        }else if('submit|reset'.indexOf(elem.type) == -1){
+          elem.value = localStorage['copytitle_'+elem.name] ? localStorage['copytitle_'+elem.name] : '';
+        }
+      }
+    } else {
+      alert('An error has occurred and your settings could not be saved.');
+    }
+  }
+  
+  function setMessage(message, mtype) {
+  	 var holder = document.getElementById('message');
+  	 holder.className = mtype;
+  	 holder.innerHTML = message;
+  	 setTimeout(function(){holder.innerHTML = ""; holder.className = ""}, 3000);
+  }
+</script>
+<div id="holder">
+  <form name="options_form" id="options_form">
+    <h3>copyTitle Options</h3>
+    <div id="message"></div>	  
+    <table cellpadding="0" cellspacing="0">
+    	<thead>
+    	 <tr><th width="20%"></th><th width="80%"></th></tr>
+    	</thead>
+	  <tbody>
+     	<tr><td colspan="2"><hr></td></tr>
+      	<tr>
+      		<td><label for='custom_regex'>Custom Regex: </label></td>
+      		<td><input type='text' name='custom_regex' size="80"/></tr>
+     	<tr>
+      		<td colspan='2' class='description'>
+      			A regex to run against the title prior to copying and displaying it. If no output is specified the title will be the match.
+      		</td>
+      	</tr>
+      	<tr>
+      		<td><label for='regex_output'>Regex Output: </label></td>
+      		<td><input type='text' name='regex_output' size="80"/></td></tr>
+      	<tr>
+      		<td colspan='2' class='description'>
+      			If specified, the title will be the output of &lt;title&gt;.replace(custom regex, regex output) - $&lt;#&gt; is the substitution format.
+      		</td>
+      	</tr>
+      	<tr>
+      		<td><label for='remove_jira'>Remove " - JIRA" </label></td>
+      		<td><input type='checkbox' name='remove_jira' /></td>
+      	</tr>
+      	<tr>
+      		<td><label for='link_title'>Copy title as link </label></td>
+      		<td><input type='checkbox' name='link_title' /></td>
+      	</tr>
+      	<tr><td colspan="2"><hr></td></tr>
+	  </tbody>  
+    </table>
+    <button onclick='saveOptions()'>Save Options</button>
+  </form>
+  <ul>
+    <li class="header">Notes:</li>
+    <li class="note">HotKey: alt + t will copy the title to your clipboard without showing the copyTitle popup.</li>
+  </ul>
+  </ul>  
+  <script type="text/javascript">
+    loadOptions();
+  </script>
+</div>

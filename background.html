@@ -1,0 +1,54 @@
+<script type="text/javascript">
+	var title = "";
+		
+	function getTitle(callback)
+	{
+		chrome.windows.getCurrent(function (win){
+
+			chrome.tabs.getSelected(win.id, function(tab){
+				var t = tab.title; 
+				var url = tab.url;				
+				var jira = localStorage['copytitle_remove_jira'] ? localStorage['copytitle_remove_jira'] : 'true';
+				if(jira == 'true' && t.indexOf(' - JIRA') > -1){
+					t = t.substring(0, t.indexOf(' - JIRA'));
+				}
+				
+				if(t && localStorage['copytitle_custom_regex']){
+				  var regex = new RegExp(localStorage['copytitle_custom_regex']);
+				  if(localStorage['copytitle_regex_output']){
+				    t = t.replace(regex, localStorage['copytitle_regex_output']);
+				  } else {
+				    t = (t.match(regex))[0];
+				  }
+				}
+				
+				if(localStorage['copytitle_link_title']=='true'){
+				  t = '<a href="' + url + '" title="' + url + '">'+t+'</a>';
+				}
+				
+				callback(t);
+			});
+
+		});
+	}	
+	
+	function doCopy(t){
+		var el = document.getElementById('store');		
+		el.innerText = t;		
+		el.select();
+		document.execCommand('Copy');
+		//show some sort of alert;
+	}
+	
+	chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
+ 			if (request.keyPressed == 84 && request.alt){	
+				sendResponse({});
+				getTitle(doCopy);
+ 			}else{
+				sendResponse({});
+			} 
+  		}
+  );
+
+</script>
+<textarea id="store"></textarea>

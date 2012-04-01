@@ -1,0 +1,22 @@
+{
+  "name": "Copy Title",
+  "version": "1.303",
+  "description": "Copy the title of the webpage.",
+  "browser_action": {
+    "default_icon": "icon.png",
+		"popup" : "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["insert.js"]
+    }
+  ],
+  "options_page": "options.html",
+	"background_page": "background.html",
+  "permissions": [
+    "http://*/*", 
+		"https://*/*",
+		"tabs"
+  ]
+}
